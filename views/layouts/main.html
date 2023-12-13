@@ -4,9 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issue Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     {{{body}}}
+    Report Issue link
+    <br>
+    View Issues disabled link
+    <br>
+    Sort by: 
+    <br>
+    <form>
+    <select class="form-select" aria-label="Select Source Material">
+      <option selected>Source</option>
+      <option value="LLI Green">LLI Green</option>
+      <option value="LLI Orange">LLI Orange</option>
+      <option value="Great Leaps">Great Leaps</option>
+      <option value="Read Naturally">Read Naturally</option>
+    </select>
+    <br>
+    <select class="form-select" aria-label="Select Reading Level">
+      <option selected>Reading Level</option>
+      <option value="K">K</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
     
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    <h2>Issues</h2>
+    {{Issues}}
 </body>
 </html>
