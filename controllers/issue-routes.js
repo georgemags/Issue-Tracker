@@ -31,8 +31,8 @@ router.get('/issue/:id', async (req, res) => {
 router.post('/view_issues', async (req, res) => {
     try {
         const issueData = await Issue.create({
-            source_material: req.body.source_material,
-            passage_title: req.body.passage_title,
+            source_mat: req.body.source_mat,
+            passage: req.body.passage,
             reading_level: req.body.reading_level,
             description: req.body.description,
         });
@@ -47,8 +47,8 @@ router.put('/:id', async (req, res) => {
     try {
         const issue = await Issue.update(
             {
-                source_material: req.body.source_material,
-                passage_title: req.body.passage_title,
+                source_mat: req.body.source_mat,
+                passage_title: req.body.passage,
                 reading_level: req.body.reading_level,
                 description: req.body.description,
             },
@@ -58,7 +58,7 @@ router.put('/:id', async (req, res) => {
                 },
             }
         );
-        res.status(200).json(dish);
+        res.status(200).json(issue);
     } catch (err) {
         res.status(500).json(err);
     }
