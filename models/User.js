@@ -50,7 +50,7 @@ User.init(
         createdAt: 'date_joined',
         freezeTableName: true,
         underscored: true,
-        modelName: 'User',
+        modelName: 'user',
         sequelize
     });
 module.exports = User;

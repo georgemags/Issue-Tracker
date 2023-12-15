@@ -2,20 +2,20 @@ const User = require('./User');
 const Issues = require('./Issues');
 const SourceMaterial = require('./SourceMat');
 
-Issues.hasMany(User, {
+User.hasMany(Issues, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
-User.belongsTo(Issues, {
+Issues.belongsTo(User, {
     foreignKey:'user_id'
 });
 
-Issues.hasMany(SourceMaterial, {
+SourceMaterial.hasMany(Issues, {
     foreignKey: 'source_mat_id',
     onDelete: 'CASCADE'
 });
 
-SourceMaterial.belongsTo(Issues, {
+Issues.belongsTo(SourceMaterial, {
     foreignKey:'source_mat_id'
 });
 
