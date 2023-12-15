@@ -1,18 +1,19 @@
 const router = require('express').Router();
-const Issue = require('../models/Issue');
+const Issue = require('../models/Issues.js');
 
 // route to get all issues
 // ?? If I want this to render on a page other than the homepage, use '/view_issues' ??
-router.get('/view_issues', async (req, res) => {
+router.get('/', async (req, res) => {
     const issueData = await Issue.findAll().catch((err) => {
         res.json(err);
     });
     const issues = issueData.map((issue) => issue.get({ plain: true }));
-    res.render('all', { issues });
+    console.log(issues)
+    res.render('view_issues', { issues });
 });
 
 // route to get one issue by id
-router.get('/issue/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const issueData = await Issue.findByPk(req.params.id);
         if (!issueData) {
@@ -28,7 +29,7 @@ router.get('/issue/:id', async (req, res) => {
 
 // route to create/add an issue
 // SUBJECT TO CHANGE !!!!!!
-router.post('/view_issues', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const issueData = await Issue.create({
             source_mat: req.body.source_mat,
