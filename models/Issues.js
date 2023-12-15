@@ -12,25 +12,26 @@ Issues.init(
             primaryKey: true,
             autoIncrement: true
         },
-        user_name:{
+        user_id:{
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
-                model: 'User',
-                key: 'name'
+                model: 'user',
+                key: 'user_id'
+            }
+        },
+        source_mat_id:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references:{
+                model: 'sourcematerial',
+                key: 'source_mat_id'
             }
         },
         reading_level:{
             type: DataTypes.STRING,
             allowNull: false,
 
-        },
-        source_mat:{
-            type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'SourceMaterial',
-                key: 'title'
-            }
         },
         passage: {
             type: DataTypes.STRING,
@@ -47,7 +48,7 @@ Issues.init(
         updatedAt: false,
         createdAt: 'date_created',
         freezeTableName: true,
-        modelName: 'Issues',
+        modelName: 'issues',
       }
 );
 module.exports = Issues;

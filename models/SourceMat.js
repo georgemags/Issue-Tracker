@@ -21,7 +21,7 @@ SourceMaterial.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'SourceMaterial'
+        modelName: 'sourcematerial'
       }
 );
 module.exports = SourceMaterial;
