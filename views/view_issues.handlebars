@@ -28,9 +28,21 @@ Sort by:
 <br>
 <h2>Issues</h2>
 {{!-- display all issues table --}}
-{{Issues}}
+<table>
+{{#each issues as |issue|}}
+<tr>
+  <td>{{issue.user_id}}</td>
+  <td>{{issue.source_mat_id}}</td>
+  <td>{{issue.reading_level}}</td>
+  <td>{{issue.passage}}</td>
+  <td>{{issue.description}}</td>
+  <td>{{issue.date_created}}</td>
+</tr>
+{{/each}}
+</table>
 
-<script>
+
+<!--
 async function sortFormSubmit(e){
   e.preventDefault();
   const source = document.getElementById('source').value;
@@ -43,5 +55,4 @@ const response = await fetch('/api/')
 
 
 }
-
-</script>
+  -->

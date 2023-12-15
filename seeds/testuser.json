@@ -7,5 +7,10 @@
     "name": "George Costanza",
     "email": "dumbidiot@gmail.com",
     "password": "pa$$Word7584"
+  },
+  {
+    "name": "tester",
+    "email": "tester@test.com",
+    "password": "test11"
   }
 ]
