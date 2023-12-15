@@ -1,11 +1,13 @@
-Report Issue link
+{{!-- replace reportIssue with correct route --}}
+<a href="/reportIssue/">Report Issue</a> 
+
 <br>
-View Issues disabled link
+View Issues (disabled link)
 <br>
 Sort by: 
 <br>
-<form>
-<select class="form-select" aria-label="Select Source Material">
+<form id="sort">
+<select class="form-select" aria-label="Select Source Material" id="source">
   <option selected>Source</option>
   <option value="LLI Green">LLI Green</option>
   <option value="LLI Orange">LLI Orange</option>
@@ -13,7 +15,7 @@ Sort by:
   <option value="Read Naturally">Read Naturally</option>
 </select>
 <br>
-<select class="form-select" aria-label="Select Reading Level">
+<select class="form-select" aria-label="Select Reading Level" id="level">
   <option selected>Reading Level</option>
   <option value="K">K</option>
   <option value="1">1</option>
@@ -25,4 +27,21 @@ Sort by:
 </form>
 <br>
 <h2>Issues</h2>
+{{!-- display all issues table --}}
 {{Issues}}
+
+<script>
+async function sortFormSubmit(e){
+  e.preventDefault();
+  const source = document.getElementById('source').value;
+  const level = document.getElementById('level').value;
+
+  
+
+const response = await fetch('/api/')
+{{!-- need to turn this into query to get data by source and level --}}
+
+
+}
+
+</script>
