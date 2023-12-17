@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+<nav>
+    {{#if loggedIn}}
+    <button id="logout" class="btn-no-style">Logout</button>
+    <br>
+    <a href ='/view_issues'>View Issues</a>
+    <br>
+    <a href = '/submit_issue'>Submit Issue</a>
+    {{else}}
+    <a href="/login">Login</a>
+    {{/if}}
 
+</nav>
     {{{body}}}
 
 </body>
