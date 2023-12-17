@@ -1,58 +1,62 @@
-{{!-- replace reportIssue with correct route --}}
-<a href="/reportIssue/">Report Issue</a> 
 
 <br>
 View Issues (disabled link)
 <br>
-Sort by: 
+Filter by: 
 <br>
-<form id="sort">
-<select class="form-select" aria-label="Select Source Material" id="source">
-  <option selected>Source</option>
-  <option value="LLI Green">LLI Green</option>
-  <option value="LLI Orange">LLI Orange</option>
-  <option value="Great Leaps">Great Leaps</option>
-  <option value="Read Naturally">Read Naturally</option>
+<form id="filter-form" action="/issues" method="GET">
+
+<select class="form-select" aria-label="Select Source Material" id="source" name="source">
+  <option>Source</option>
+  {{#each sourceMaterials as |sourceMaterial|}}
+    <option value={{sourceMaterial.source_mat_id}}>{{sourceMaterial.title}}</option>
+  {{/each}}
 </select>
 <br>
-<select class="form-select" aria-label="Select Reading Level" id="level">
-  <option selected>Reading Level</option>
-  <option value="K">K</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
+
+<select class="form-select" aria-label="Select Reading Level" id="level" name="level">
+  <option>Reading Level</option>
+  {{#each readingLevels as |readingLevel|}}
+    <option value={{readingLevel}}>{{readingLevel}}</option>
+  {{/each}}
 </select>
 
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <br>
+
 <h2>Issues</h2>
 {{!-- display all issues table --}}
 <table>
-{{#each issues as |issue|}}
-<tr>
-  <td>{{issue.user_id}}</td>
-  <td>{{issue.source_mat_id}}</td>
-  <td>{{issue.reading_level}}</td>
-  <td>{{issue.passage}}</td>
-  <td>{{issue.description}}</td>
-  <td>{{issue.date_created}}</td>
-</tr>
-{{/each}}
+  <thead>
+    <tr>
+      <th>user</th>
+      <th>source material</th>
+      <th>reading_level</th>
+      <th>passage</th>
+      <th>description</th>
+      <th>date_created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each issues as |issue|}}
+      <tr>
+        <td>{{issue.user.name}}</td>
+        <td>{{issue.sourcematerial.title}}</td>
+        <td>{{issue.reading_level}}</td>
+        <td>{{issue.passage}}</td>
+        <td>{{issue.description}}</td>
+        <td>{{issue.date_created}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
 </table>
 
+<script>
+  // select the current reading_level and source value
+  const level = '{{level}}'
+  const source = '{{source}}'
 
-<!--
-async function sortFormSubmit(e){
-  e.preventDefault();
-  const source = document.getElementById('source').value;
-  const level = document.getElementById('level').value;
-
-  
-
-const response = await fetch('/api/')
-{{!-- need to turn this into query to get data by source and level --}}
-
-
-}
-  -->
+  if (level != '') document.querySelector('#level').value = level
+  if (source != '') document.querySelector('#source').value = source
+</script>

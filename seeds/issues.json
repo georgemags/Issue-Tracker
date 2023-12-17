@@ -1,17 +1,27 @@
 [
     {
-        "reading_level": "1",
+        "reading_level": "K",
         "passage": "passage 1",
+        "description": "something is bad"
+    },
+    {
+        "reading_level": "1",
+        "passage": "passage 2",
         "description": "error in third sentence"
     },
     {
         "reading_level": "2",
-        "passage": "passage 2",
+        "passage": "passage 3",
         "description": "word spelled wrong"
     },
     {
         "reading_level": "3",
-        "passage": "passage 3",
+        "passage": "passage 4",
         "description": "bad grammar"
+    },
+    {
+        "reading_level": "3",
+        "passage": "passage 5",
+        "description": "bad stuff"
     }
 ]
