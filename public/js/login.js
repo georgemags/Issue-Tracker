@@ -1,13 +1,13 @@
 const loginFormHandler = async (event) => {
-    // TODO: Add a comment describing the functionality of this statement
+
     event.preventDefault();
   
-    // TODO: Add a comment describing the functionality of these expressions
+
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
   
     if (email && password) {
-      // TODO: Add a comment describing the functionality of this expression
+
       console.log('attempting login')
       const response = await fetch('/api/users/login', {
         method: 'POST',
@@ -17,7 +17,7 @@ const loginFormHandler = async (event) => {
   
       if (response.ok) {
         console.log('reloading page, login successful')
-        document.location.replace('/');
+        document.location.replace('/submit_issue');
       } else {
         alert('Failed to log in');
       }
