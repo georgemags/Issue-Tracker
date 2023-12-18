@@ -1,1 +1,64 @@
-/* styles here */
+
+header {
+    background-color:#f2f2f2;
+    display: block;
+}
+
+nav {
+    display:flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+
+.description {
+    display:flex;
+    align-items: center;
+}
+
+
+
+h1 {
+    font-size:3.3rem;
+    line-height: 1.5;
+    color:#025159;
+    font-family: 'Titillium Web', sans-serif;
+
+}
+.small-menu{
+    max-width: 300px;
+}
+
+.fakeclass-color-pallete {
+    border-color: #bacbd9;  
+    border-color:#025159;
+    border-color: #8c8079;
+    border-color:#a6a1a1;
+    border-color:#f2f2f2;
+  }
+
+.btn-bd-primary {
+    font-weight: 600;
+    color: white;
+    background-color: #8c8079; 
+  }
+
+.btn-primary {
+    background-color: #025159;
+    border-color: #bacbd9;
+}
+
+  a { 
+color: #8c8079
+
+  }
+
+
+html {
+    background-color:rgb(248, 245, 220)
+}
+
+@media screen and (max-width:670px) {
+        h1 {
+        font-size:2rem;
+    }
+}

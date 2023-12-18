@@ -1,41 +1,44 @@
+<!-- view_issues handlebar -->
 
-<br>
-View Issues (disabled link)
-<br>
-Filter by: 
+<div class="container-md">
+
+<div class="row small-menu">
+    <div class="col">
+    Filter by: 
 <br>
 <form id="filter-form" action="/issues" method="GET">
-
-<select class="form-select" aria-label="Select Source Material" id="source" name="source">
-  <option>Source</option>
-  {{#each sourceMaterials as |sourceMaterial|}}
+    <select class="form-select" aria-label="Select Source Material" id="source" name="source">
+        <option>Source</option>
+    {{#each sourceMaterials as |sourceMaterial|}}
     <option value={{sourceMaterial.source_mat_id}}>{{sourceMaterial.title}}</option>
-  {{/each}}
-</select>
+    {{/each}}
+    </select>
 <br>
-
-<select class="form-select" aria-label="Select Reading Level" id="level" name="level">
-  <option>Reading Level</option>
-  {{#each readingLevels as |readingLevel|}}
+    <select class="form-select" aria-label="Select Reading Level" id="level" name="level">
+    <option>Reading Level</option>
+    {{#each readingLevels as |readingLevel|}}
     <option value={{readingLevel}}>{{readingLevel}}</option>
-  {{/each}}
-</select>
-
-<button type="submit" class="btn btn-primary">Submit</button>
+    {{/each}}
+    </select>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+</div>
+
 <br>
 
 <h2>Issues</h2>
-{{!-- display all issues table --}}
-<table>
+
+<table class = "table">
   <thead>
     <tr>
-      <th>user</th>
-      <th>source material</th>
-      <th>reading_level</th>
-      <th>passage</th>
-      <th>description</th>
-      <th>date_created</th>
+      <th scope="col">User</th>
+      <th scope="col">Source Material</th>
+      <th scope="col">Reading Level</th>
+      <th scope="col">Passage</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date Created</th>
     </tr>
   </thead>
   <tbody>
@@ -51,6 +54,7 @@ Filter by:
     {{/each}}
   </tbody>
 </table>
+</div>
 
 <script>
   // select the current reading_level and source value

@@ -9,24 +9,43 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css" />
 </head>
-
 <body>
-    <nav>
-        {{#if loggedIn}}
-        <button id="logout" class="btn-no-style">Logout</button>
-        <br>
-        <a href='/view_issues'>View Issues</a>
-        <br>
-        <a href='/submit_issue'>Submit Issue</a>
-        {{else}}
-        <a href="/login">Login</a>
-        {{/if}}
+    <header>
+        <div class="row">
+            <div class = "col-sm-8 my-3">
+                <h1 class="text-center">Issues Tracker</h1>
+            </div>
+            {{#unless loggedIn}}
+            <div class = "col-sm-4 p-2 description"> <p class="m-2"> A site for tutors to report reading material issues.</p>
+            </div>
+            {{/unless}}
+            
+            {{#if loggedIn}}
+            <nav class = "col-sm-3">
+            <div class = "p-2 nav-link">    
+                <a href ='/view_issues'><button type="button" class="btn btn-outline-dark">View Issues</button></a>
+            </div>
 
-    </nav>
+            <div class = "p-2 nav-link">
+                <a href = '/submit_issue'><button type="button" class="btn btn-outline-dark">Submit Issues</button></a>
+            </div>
+            <div class = "p-2 my-2">
+                <button id="logout" class="btn btn-bd-primary">Logout</button>
+            </div> 
+             </nav>
+                {{/if}}
+        </div>        
+    </header>
+
     {{{body}}}
-    {{#if loggedIn}}
-    <script src="public/js/logout.js" src="public/js/login.js"></script>
-    {{/if}}
+
+<footer class="container-md d-flex justify-content-center mt-5">
+    <img src="images/logo2.png" alt="C.G.M.E logo" width="50px"> 
+    This page was created by Cian Cagemoe, George Maguire, Megan Rogers, Ellysa Schottler
+</footer>
+
+<script src="/js/login.js"></script>
+<script src="/js/logout.js"></script>
 </body>
 
 </html>
