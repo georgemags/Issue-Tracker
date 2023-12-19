@@ -2,9 +2,10 @@ const router = require('express').Router();
 const Issue = require('../models/Issues.js');
 const SourceMat = require('../models/SourceMat.js');
 const User = require('../models/User.js');
+const withAuth = require('../utils/auth');
 
 // route to get all issues - or a filtered set of issues if parameters are sent in from the form
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     //If the form is sending in non-default parameters - create an object to specify where in our Sequelize query
     let where = {}
     if (req.query.source && req.query.source != 'Source') {
@@ -66,7 +67,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const issueData = await Issue.create({
-            source_mat: req.body.source_mat,
+            user_id: req.session.user_id,
+            source_mat_id: req.body.source_mat_id,
             passage: req.body.passage,
             reading_level: req.body.reading_level,
             description: req.body.description,
@@ -82,8 +84,9 @@ router.put('/:id', async (req, res) => {
     try {
         const issue = await Issue.update(
             {
-                source_mat: req.body.source_mat,
-                passage_title: req.body.passage,
+                user_id: req.session.user_id,
+                source_mat_id: req.body.source_mat_id,
+                passage: req.body.passage,
                 reading_level: req.body.reading_level,
                 description: req.body.description,
             },
