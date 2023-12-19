@@ -1,4 +1,5 @@
-{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+{{!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Select Source Material</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,14 +54,17 @@
   <label for="exampleFormControlTextarea1" class="form-label">Issue Description</label>
   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 </div>
-<button type="button" class="btn btn-primary btn-sm">Submit</button> --}}
-
-
+<button type="button" class="btn btn-primary btn-sm">Submit</button>--}}
 
 
 
 {{!-- submit form 2 --}}
+
+
 <div class="container-sm">
+
+<h2 class="my-2"> Welcome {{user.name}}, please submit your issue below!</h2>
+
 <form id = "addIssue">
 
     <select class="form-select" aria-label="Select Source Material" id="source" name="source">
@@ -86,28 +90,31 @@
         <label for="description" class="form-label">Issue Description:</label>
         <br><input class="form-control" type="textarea" id="description">
     </div>
-    <button type="button" class="btn btn-primary btn-sm">Submit</button>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 </form>
 </div>
 
 <script>
 async function issueSubmit(e){
     e.preventDefault();
-    const user = '{{user}}'
-    const source = document.getElementById('source')
-    const level = document.getElementById('level')
-    const passage = document.getElementById('passage')
-    const description = document.getElementById('description')
-//to do: verify route below
-    const response = await fetch('/issues/create',{
+    const source_mat_id = document.getElementById('source').value
+    const reading_level = document.getElementById('level').value
+    const passage = document.getElementById('passage').value
+    const description = document.getElementById('description').value
+
+    const response = await fetch('/api/issues/create',{
         method:"POST",
-        body:JSON.stringify({user, source, level, passage, description}),
+        body:JSON.stringify({
+          source_mat_id, 
+          reading_level, 
+          passage, 
+          description
+        }),
         headers: {"Content-Type": "application/json"}
-    
     });
-// to do: verify route below
+
     if (response.ok){
-        document.location.replace("/issues_submitted")
+        document.location.replace("/issues/submitted")
     }
     else{
         alert("The issue did not submit, please try again.")
