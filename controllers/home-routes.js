@@ -27,5 +27,9 @@ router.get('/login', (req, res) => {
     }
     res.render('login');
 });
+// if there is an existing session this route will redirect
+router.get('/submit_issue', (req, res) => {
 
+    res.render('submit_issue');
+});
 module.exports = router;
