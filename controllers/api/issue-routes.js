@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Issues} = require('../../models');
+const { Issues } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // routes to /api/issues/create
