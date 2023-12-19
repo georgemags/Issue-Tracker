@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Select Source Material</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,4 +53,65 @@
   <label for="exampleFormControlTextarea1" class="form-label">Issue Description</label>
   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 </div>
-<button type="button" class="btn btn-primary btn-sm">Submit</button>
+<button type="button" class="btn btn-primary btn-sm">Submit</button> --}}
+
+
+
+
+
+<!-- submit-form 2 -->
+<div class="container-sm">
+<form id = "addIssue">
+
+    <select class="form-select" aria-label="Select Source Material" id="source" name="source">
+        <option>Source</option>
+    {{#each sourceMaterials as |sourceMaterial|}}
+    <option value={{sourceMaterial.source_mat_id}}>{{sourceMaterial.title}}</option>
+    {{/each}}
+    </select>
+    <br>
+    <select class="form-select" aria-label="Select Reading Level" id="level" name="level">
+    <option>Reading Level</option>
+    {{#each readingLevels as |readingLevel|}}
+    <option value={{readingLevel}}>{{readingLevel}}</option>
+    {{/each}}
+    </select>
+   
+    <br>
+    <div class="mb-3">
+        <label for="description" class="form-label">Passage Title/Page Number:</label>
+        <br><input type="text" class="form-control" id="passage"><br>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Issue Description:</label>
+        <br><input class="form-control" type="textarea" id="description">
+    </div>
+    <button type="button" class="btn btn-primary btn-sm">Submit</button>
+</form>
+</div>
+
+<script>
+async function issueSubmit(e){
+    e.preventDefault();
+    const user = '{{user}}'
+    const source = document.getElementById('source')
+    const level = document.getElementById('level')
+    const passage = document.getElementById('passage')
+    const description = document.getElementById('description')
+//to do: verify route below
+    const response = await fetch('/issues/create',{
+        method:"POST",
+        body:JSON.stringify({user, source, level, passage, description}),
+        headers: {"Content-Type": "application/json"}
+
+})
+// to do: verify route below
+if (response.ok){
+    document.location.replace("/issues_submitted")
+}
+
+document
+.querySelector('#addIssue')
+.addEventListener('submit', issueSubmit)
+
+</script>
