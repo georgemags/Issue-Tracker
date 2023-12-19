@@ -18,12 +18,12 @@ router.get('/', withAuth, async (req, res) => {
     // get all issues, filtered by our query params
     const issueData = await Issue.findAll({
         include: [{model: SourceMat}, {model: User}],
-        where: where
+        where: where, 
     }).catch((err) => {
         res.json(err);
     });
     const issues = issueData.map((issue) => issue.get({ plain: true }));
-
+    //console.log(issues);
     // get source material options
     const sourceMaterialsData = await SourceMat.findAll().catch((err) => res.json(err))
     const sourceMaterials = sourceMaterialsData.map(sourceMaterial => sourceMaterial.get({plain: true}))
@@ -32,11 +32,11 @@ router.get('/', withAuth, async (req, res) => {
     // https://stackoverflow.com/questions/41519695/how-to-get-a-distinct-value-of-a-row-with-sequelize
     const readingLevels = await Issue.findAll({
         attributes: ['reading_level'],
-        group: ['reading_level']
+        group: ['reading_level'],
     }).then(issues => issues.map(issue => issue.reading_level))
-
+readingLevels.sort();
     // TODO: sort reading levels and source materials
-
+    //console.log(readingLevels);
     res.render('view_issues', {
         issues,
         readingLevels,
