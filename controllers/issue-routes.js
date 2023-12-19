@@ -1,7 +1,5 @@
 const router = require('express').Router();
-const Issue = require('../models/Issues.js');
-const SourceMat = require('../models/SourceMat.js');
-const User = require('../models/User.js');
+const {Issues,User,SourceMaterial} = require('../models');
 const withAuth = require('../utils/auth');
 
 // route to get all issues - or a filtered set of issues if parameters are sent in from the form
@@ -16,25 +14,25 @@ router.get('/', withAuth, async (req, res) => {
     }
 
     // get all issues, filtered by our query params
-    const issueData = await Issue.findAll({
-        include: [{model: SourceMat}, {model: User}],
-        where: where, 
+    const issueData = await Issues.findAll({
+        include: [{ model: SourceMaterial }, { model: User }],
+        where: where,
     }).catch((err) => {
         res.json(err);
     });
     const issues = issueData.map((issue) => issue.get({ plain: true }));
     //console.log(issues);
     // get source material options
-    const sourceMaterialsData = await SourceMat.findAll().catch((err) => res.json(err))
-    const sourceMaterials = sourceMaterialsData.map(sourceMaterial => sourceMaterial.get({plain: true}))
+    const sourceMaterialsData = await SourceMaterial.findAll().catch((err) => res.json(err))
+    const sourceMaterials = sourceMaterialsData.map(sourceMaterial => sourceMaterial.get({ plain: true }))
 
     // get the reading level options from the issues table
     // https://stackoverflow.com/questions/41519695/how-to-get-a-distinct-value-of-a-row-with-sequelize
-    const readingLevels = await Issue.findAll({
+    const readingLevels = await Issues.findAll({
         attributes: ['reading_level'],
         group: ['reading_level'],
     }).then(issues => issues.map(issue => issue.reading_level))
-readingLevels.sort();
+    readingLevels.sort();
     // TODO: sort reading levels and source materials
     //console.log(readingLevels);
     res.render('view_issues', {
@@ -42,62 +40,36 @@ readingLevels.sort();
         readingLevels,
         sourceMaterials,
         source: req.query.source,
-        level: req.query.level
+        level: req.query.level,
+        loggedIn: req.session.loggedIn
     });
 });
 
-// route to get one issue by id
-router.get('/:id',withAuth, async (req, res) => {
+
+
+// view route url /issues/submit
+router.get('/submit_issue', withAuth, async (req, res) => {
     try {
-        const issueData = await Issue.findByPk(req.params.id);
+        res.render('submit_issue', {loggedIn: req.session.loggedIn})
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
+
+// route to get one issue by id
+router.get('/single_issue/:id', withAuth, async (req, res) => {
+    try {
+        const issueData = await Issues.findByPk(req.params.id);
         if (!issueData) {
             res.status(404).json({ message: 'No Issue with this ID found.' });
             return;
         }
         const issue = issueData.get({ plain: true });
-        res.render('issue', issue);
+        res.render('issue', { issue, loggedIn: req.session.loggedIn });
     } catch (err) {
         res.status(500).json(err);
     };
-});
-
-// routes to /issues/create
-router.post('/create',withAuth, async (req, res) => {
-    try {
-        const issueData = await Issue.create({
-            user_id: req.session.user_id,
-            source_mat_id: req.body.source_mat_id,
-            passage: req.body.passage,
-            reading_level: req.body.reading_level,
-            description: req.body.description,
-        });
-        res.status(200).json(issueData);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
-
-// routes to /issues/update/:id
-router.put('/update/:id',withAuth, async (req, res) => {
-    try {
-        const issue = await Issue.update(
-            {
-                user_id: req.session.user_id,
-                source_mat_id: req.body.source_mat_id,
-                passage: req.body.passage,
-                reading_level: req.body.reading_level,
-                description: req.body.description,
-            },
-            {
-                where: {
-                    id: req.params.id,
-                },
-            }
-        );
-        res.status(200).json(issue);
-    } catch (err) {
-        res.status(500).json(err);
-    }
 });
 
 module.exports = router;
