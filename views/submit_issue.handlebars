@@ -59,7 +59,7 @@
 
 
 
-<!-- submit-form 2 -->
+{{!-- submit form 2 --}}
 <div class="container-sm">
 <form id = "addIssue">
 
@@ -103,11 +103,15 @@ async function issueSubmit(e){
         method:"POST",
         body:JSON.stringify({user, source, level, passage, description}),
         headers: {"Content-Type": "application/json"}
-
-})
+    
+    });
 // to do: verify route below
-if (response.ok){
-    document.location.replace("/issues_submitted")
+    if (response.ok){
+        document.location.replace("/issues_submitted")
+    }
+    else{
+        alert("The issue did not submit, please try again.")
+    }
 }
 
 document
