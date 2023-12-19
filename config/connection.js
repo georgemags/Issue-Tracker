@@ -3,8 +3,8 @@ require('dotenv').config();
 
 let sequelize;
 
-if (process.env.JAWSDB_URL) {
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
+if (process.env.POSTGRES_DB) {
+  sequelize = new Sequelize(process.env.POSTGRES_DB);
 } else {
   sequelize = new Sequelize(
     process.env.DB_NAME,

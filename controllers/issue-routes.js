@@ -1,18 +1,53 @@
 const router = require('express').Router();
-const Issue = require('../models/Issue');
+const Issue = require('../models/Issues.js');
+const SourceMat = require('../models/SourceMat.js');
+const User = require('../models/User.js');
 
-// route to get all issues
-// ?? If I want this to render on a page other than the homepage, use '/view_issues' ??
-router.get('/view_issues', async (req, res) => {
-    const issueData = await Issue.findAll().catch((err) => {
+// route to get all issues - or a filtered set of issues if parameters are sent in from the form
+router.get('/', async (req, res) => {
+    //If the form is sending in non-default parameters - create an object to specify where in our Sequelize query
+    let where = {}
+    if (req.query.source && req.query.source != 'Source') {
+        where.source_mat_id = req.query.source
+    }
+    if (req.query.level && req.query.level != 'Reading Level') {
+        where.reading_level = req.query.level
+    }
+
+    // get all issues, filtered by our query params
+    const issueData = await Issue.findAll({
+        include: [{model: SourceMat}, {model: User}],
+        where: where
+    }).catch((err) => {
         res.json(err);
     });
     const issues = issueData.map((issue) => issue.get({ plain: true }));
-    res.render('all', { issues });
+
+    // get source material options
+    const sourceMaterialsData = await SourceMat.findAll().catch((err) => res.json(err))
+    const sourceMaterials = sourceMaterialsData.map(sourceMaterial => sourceMaterial.get({plain: true}))
+
+    // get the reading level options from the issues table
+    // https://stackoverflow.com/questions/41519695/how-to-get-a-distinct-value-of-a-row-with-sequelize
+    const readingLevels = await Issue.findAll({
+        attributes: ['reading_level'],
+        group: ['reading_level']
+    }).then(issues => issues.map(issue => issue.reading_level))
+
+    // TODO: sort reading levels and source materials
+    // TODO: reformat date
+
+    res.render('view_issues', {
+        issues,
+        readingLevels,
+        sourceMaterials,
+        source: req.query.source,
+        level: req.query.level
+    });
 });
 
 // route to get one issue by id
-router.get('/issue/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const issueData = await Issue.findByPk(req.params.id);
         if (!issueData) {
@@ -28,7 +63,7 @@ router.get('/issue/:id', async (req, res) => {
 
 // route to create/add an issue
 // SUBJECT TO CHANGE !!!!!!
-router.post('/view_issues', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const issueData = await Issue.create({
             source_mat: req.body.source_mat,

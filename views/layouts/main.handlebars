@@ -1,15 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issue Tracker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
+    <header>
+        <div class="row">
+            <div class = "col-sm-8 my-3">
+                <h1 class="text-center">Issues Tracker</h1>
+            </div>
+            {{#unless loggedIn}}
+            <div class = "col-sm-4 p-2 description"> <p class="m-2"> A site for tutors to report reading material issues.</p>
+            </div>
+            {{/unless}}
+            
+            {{#if loggedIn}}
+            <nav class = "col-sm-3">
+            <div class = "p-2 nav-link">    
+                <a href ='/view_issues'><button type="button" class="btn btn-outline-dark">View Issues</button></a>
+            </div>
+
+            <div class = "p-2 nav-link">
+                <a href = '/submit_issue'><button type="button" class="btn btn-outline-dark">Submit Issues</button></a>
+            </div>
+            <div class = "p-2 my-2">
+                <button id="logout" class="btn btn-bd-primary">Logout</button>
+            </div> 
+             </nav>
+                {{/if}}
+        </div>        
+    </header>
+
     {{{body}}}
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<footer class="container-md d-flex justify-content-center mt-5">
+    <img src="images/logo2.png" alt="C.G.M.E logo" width="40px" height="25px"> 
+    <p class="mx-1 fs-6">This page was created by Cian Cagemoe, George Maguire, Megan Rogers, Ellysa Schottler</p>
+</footer>
+
+<script src="/js/login.js"></script>
+<script src="/js/logout.js"></script>
 </body>
 </html>

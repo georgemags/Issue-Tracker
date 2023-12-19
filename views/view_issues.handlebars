@@ -1,28 +1,66 @@
-Report Issue link
-<br>
-View Issues disabled link
-<br>
-Sort by: 
-<br>
-<form>
-<select class="form-select" aria-label="Select Source Material">
-  <option selected>Source</option>
-  <option value="LLI Green">LLI Green</option>
-  <option value="LLI Orange">LLI Orange</option>
-  <option value="Great Leaps">Great Leaps</option>
-  <option value="Read Naturally">Read Naturally</option>
-</select>
-<br>
-<select class="form-select" aria-label="Select Reading Level">
-  <option selected>Reading Level</option>
-  <option value="K">K</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-</select>
+<!-- view_issues handlebar -->
 
-<button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="container-md">
+
+<div class="row small-menu">
+    <div class="col">
+    Filter by: 
 <br>
+<form id="filter-form" action="/issues" method="GET">
+    <select class="form-select" aria-label="Select Source Material" id="source" name="source">
+        <option>Source</option>
+    {{#each sourceMaterials as |sourceMaterial|}}
+    <option value={{sourceMaterial.source_mat_id}}>{{sourceMaterial.title}}</option>
+    {{/each}}
+    </select>
+<br>
+    <select class="form-select" aria-label="Select Reading Level" id="level" name="level">
+    <option>Reading Level</option>
+    {{#each readingLevels as |readingLevel|}}
+    <option value={{readingLevel}}>{{readingLevel}}</option>
+    {{/each}}
+    </select>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+<br>
+
 <h2>Issues</h2>
-{{Issues}}
+
+<table class = "table">
+  <thead>
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col">Source Material</th>
+      <th scope="col">Reading Level</th>
+      <th scope="col">Passage</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each issues as |issue|}}
+      <tr>
+        <td>{{issue.user.name}}</td>
+        <td>{{issue.sourcematerial.title}}</td>
+        <td>{{issue.reading_level}}</td>
+        <td>{{issue.passage}}</td>
+        <td>{{issue.description}}</td>
+        <td>{{format_date issue.date_created}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+<script>
+  // select the current reading_level and source value
+  const level = '{{level}}'
+  const source = '{{source}}'
+
+  if (level != '') document.querySelector('#level').value = level
+  if (source != '') document.querySelector('#source').value = source
+</script>

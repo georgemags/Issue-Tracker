@@ -31,7 +31,6 @@ Issues.init(
         reading_level:{
             type: DataTypes.STRING,
             allowNull: false,
-
         },
         passage: {
             type: DataTypes.STRING,
