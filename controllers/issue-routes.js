@@ -36,7 +36,6 @@ router.get('/', withAuth, async (req, res) => {
     }).then(issues => issues.map(issue => issue.reading_level))
 
     // TODO: sort reading levels and source materials
-    // TODO: reformat date
 
     res.render('view_issues', {
         issues,
