@@ -47,7 +47,7 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // route to get one issue by id
-router.get('/:id', async (req, res) => {
+router.get('/:id',withAuth, async (req, res) => {
     try {
         const issueData = await Issue.findByPk(req.params.id);
         if (!issueData) {
@@ -61,9 +61,8 @@ router.get('/:id', async (req, res) => {
     };
 });
 
-// route to create/add an issue
-// SUBJECT TO CHANGE !!!!!!
-router.post('/', async (req, res) => {
+// routes to /issues/create
+router.post('/create',withAuth, async (req, res) => {
     try {
         const issueData = await Issue.create({
             user_id: req.session.user_id,
@@ -78,8 +77,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-// route to update the model ??
-router.put('/:id', async (req, res) => {
+// routes to /issues/update/:id
+router.put('/update/:id',withAuth, async (req, res) => {
     try {
         const issue = await Issue.update(
             {
