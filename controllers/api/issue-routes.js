@@ -5,6 +5,7 @@ const withAuth = require('../../utils/auth');
 // routes to /api/issues/create
 router.post('/create',withAuth, async (req, res) => {
     try {
+        console.log(' creating issue with body:', req.body)
         const issueData = await Issues.create({
             user_id: req.session.user_id,
             source_mat_id: req.body.source_mat_id,
@@ -14,6 +15,7 @@ router.post('/create',withAuth, async (req, res) => {
         });
         res.status(200).json(issueData);
     } catch (err) {
+        console.log(err)
         res.status(400).json(err);
     }
 });

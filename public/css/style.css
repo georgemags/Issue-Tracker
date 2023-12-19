@@ -15,17 +15,12 @@ nav {
     align-items: center;
 }
 
-
-
 h1 {
     font-size:3.3rem;
     line-height: 1.5;
     color:#025159;
     font-family: 'Titillium Web', sans-serif;
 
-}
-.small-menu{
-    max-width: 300px;
 }
 
 .fakeclass-color-pallete {
@@ -55,6 +50,11 @@ color: #8c8079
 
 html {
     background-color:rgb(248, 245, 220)
+}
+
+
+.form-select {
+    max-width: 400px;
 }
 
 @media screen and (max-width:670px) {
