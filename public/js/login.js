@@ -17,7 +17,7 @@ const loginFormHandler = async (event) => {
   
       if (response.ok) {
         console.log('reloading page, login successful')
-        document.location.replace('/submit_issue');
+        document.location.replace('/issues/submit_issue');
       } else {
         alert('Failed to log in');
       }

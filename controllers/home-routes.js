@@ -22,7 +22,7 @@ router.get('/', withAuth, async (req, res) => {
 // if there is an existing session this route will redirect
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
-        res.redirect('/');
+        res.redirect('/issues/submit_issue');
         return;
     }
     res.render('login');
