@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Issues,User,SourceMaterial} = require('../models');
+const { Issues,User,SourceMaterial } = require('../models');
 const withAuth = require('../utils/auth');
 
 // route to get all issues - or a filtered set of issues if parameters are sent in from the form
@@ -47,7 +47,9 @@ router.get('/submit_issue', withAuth, async (req, res) => {
 })
 
 router.get('/submitted', withAuth, async (req, res) => {
-    res.render('issues_submitted', {})
+    res.render('issues_submitted', {
+        loggedIn: req.session.loggedIn
+    })
 })
 
 // route to get one issue by id
