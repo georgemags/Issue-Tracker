@@ -2,65 +2,104 @@
 
 <div class="container-md">
 
-<div class="row small-menu">
+  <div class="row small-menu">
     <div class="col">
-    Filter by: 
-<br>
-<form id="filter-form" action="/issues" method="GET">
-    <select class="form-select" aria-label="Select Source Material" id="source" name="source">
-        <option>Source</option>
-    {{#each sourceMaterials as |sourceMaterial|}}
-    <option value={{sourceMaterial.source_mat_id}}>{{sourceMaterial.title}}</option>
-    {{/each}}
-    </select>
-<br>
-    <select class="form-select" aria-label="Select Reading Level" id="level" name="level">
-    <option>Reading Level</option>
-    {{#each readingLevels as |readingLevel|}}
-    <option value={{readingLevel}}>{{readingLevel}}</option>
-    {{/each}}
-    </select>
-    <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+      Filter by:
+      <br />
+      <form id="filter-form" action="/issues" method="GET">
+        <select
+          class="form-select"
+          aria-label="Select Source Material"
+          id="source"
+          name="source"
+        >
+          <option>Source</option>
+          {{#each sourceMaterials as |sourceMaterial|}}
+            <option
+              value={{sourceMaterial.source_mat_id}}
+            >{{sourceMaterial.title}}</option>
+          {{/each}}
+        </select>
+        <br />
+        <select
+          class="form-select"
+          aria-label="Select Reading Level"
+          id="level"
+          name="level"
+        >
+          <option>Reading Level</option>
+          {{#each readingLevels as |readingLevel|}}
+            <option value={{readingLevel}}>{{readingLevel}}</option>
+          {{/each}}
+        </select>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <br />
+  <div class = "mb-3">
+  <button class="btn btn-secondary" id="pdfMe">Download Table to PDF</button>
+  </div>
+  <div class="export-content">
+    <h2>Issues</h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">User</th>
+          <th scope="col">Source Material</th>
+          <th scope="col">Reading Level</th>
+          <th scope="col">Passage</th>
+          <th scope="col">Description</th>
+          <th scope="col">Date Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each issues as |issue|}}
+          <tr>
+            <td>{{issue.user.name}}</td>
+            <td>{{issue.sourcematerial.title}}</td>
+            <td>{{issue.reading_level}}</td>
+            <td>{{issue.passage}}</td>
+            <td>{{issue.description}}</td>
+            <td>{{format_date issue.date_created}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
 
-<br>
 
-<h2>Issues</h2>
-
-<table class = "table">
-  <thead>
-    <tr>
-      <th scope="col">User</th>
-      <th scope="col">Source Material</th>
-      <th scope="col">Reading Level</th>
-      <th scope="col">Passage</th>
-      <th scope="col">Description</th>
-      <th scope="col">Date Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each issues as |issue|}}
-      <tr>
-        <td>{{issue.user.name}}</td>
-        <td>{{issue.sourcematerial.title}}</td>
-        <td>{{issue.reading_level}}</td>
-        <td>{{issue.passage}}</td>
-        <td>{{issue.description}}</td>
-        <td>{{format_date issue.date_created}}</td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
-</div>
-
+<script src="/js/jspdf.umd.min.js"></script>
+<script src="/js/html2canvas.min.js"></script>
 <script>
+
   // select the current reading_level and source value
   const level = '{{level}}'
   const source = '{{source}}'
 
   if (level != '') document.querySelector('#level').value = level
   if (source != '') document.querySelector('#source').value = source
+
+  window.jsPDF = window.jspdf.jsPDF;
+  async function makePDF() {
+    var doc = new jsPDF();
+
+    doc.html(document.querySelector('.export-content'), {
+        callback: function(doc) {
+            doc.save('issue-tracker.pdf')
+        },
+        x: 15,
+        y: 15,
+        width: 170, //target width in the PDF document
+        windowWidth: 650 //window width in CSS pixels
+    });
+  }
+
+  document.getElementById('pdfMe').addEventListener('click', makePDF)
+
+
 </script>
