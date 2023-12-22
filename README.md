@@ -13,6 +13,7 @@
 
 ## Description <a name="Description"></a>
 This site is a tool for reading tutors to report and keep track of issues with reading material. It allows the user to submit issues they find, and view submitted issues. You can also view reported issues based on reading level and source material.
+![image](https://github.com/georgemags/Issue-Tracker/assets/142840132/599f0ed9-a342-440b-99b6-9ad3f3a118bc)
 
 ## Installation <a name="Installation"></a>
 This application is deployed as a webpage.
