@@ -8,8 +8,7 @@
 2. [Usage Information](#Usage)    
 3. [Contribution Instructions](#Contribution)
 4. [Contributors](#contributors)
-5. [Testing Instructions](#Testing)
-6. [Questions](#Questions?????!)
+5. [Questions](#Questions?????!)
 
 ## Description <a name="Description"></a>
 This site is a tool for reading tutors to report and keep track of issues with reading material. It allows the user to submit issues they find, and view submitted issues. You can also view reported issues based on reading level and source material.
@@ -26,13 +25,11 @@ https://issue-tracker-i9vg.onrender.com/
 Please refer to contact info below if you'd like to contribute.
 
 ## Contributors<a name="contributors"></a>
-Elyssa Schottler
+Ellysa Schottler
 <br/>George Maguire
 <br/>Megan Rogers
 <br/>Cian Cagemoe
 
-## Testing Instructions <a name="Testing"></a>
-I have no idea
 
 ## Questions? <a name="Questions?????!"></a>
 For questions you can reach us at our githubs:
